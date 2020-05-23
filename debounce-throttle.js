@@ -1,4 +1,5 @@
 // 防抖, 在连续触发的 delay 时间内，只执行一次
+// 这里应用场景: 例如远程输入查询，等待用户输入完成后发送一次请求
 function debounce(fn, delay) {
   let timer = null;
   return function () {
@@ -26,6 +27,7 @@ async function testDebounce() {
 }
 
 // 节流, 在连续触发的 时间内，每隔delay执行一次
+// 比如scroll,resize时间
 function throttle(fn, delay) {
   let invokeAt = 0;
   let timer = null;
