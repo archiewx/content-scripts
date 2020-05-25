@@ -3,7 +3,7 @@
 一种保存资源副本，并在下次请求时候不用请求直接使用资源副本的技术
 
 ## 资源缓存的目标
-目前只有Get请求才能被缓存
+目前只有Get/Head请求通过头部字段定义可以缓存.
 
 ## 缓存的意义
 减少http请求，提高资源在互联网的使用效率
@@ -22,6 +22,7 @@
 ### 通用字段
 
 1. [Cache-Control](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control)  区分缓存支持情况，并通过不同值来决定使用什么缓存策略, 常用取值:
+
   * no-store: 完全不使用缓存
   * no-cache: 使用缓存，但是会发送一个304请求
   * max-age=N: N去秒值，代表N秒后过期
@@ -34,7 +35,9 @@
 1. Program 从HTTP/1.0 开始。该值目前和Cache-Control类似，但是不能拿来替换Cache-Control，可用来兼容之前HTTP协议。
 2. 新鲜度, 这个相对于已过期资源来说，在c/s架构下， 会与服务端约定一个最大过期时间，在过期时间之前，资源都是新鲜的。 过期后客户端不会直接清除或者忽略资源副本
   而是通过一种缓存策略(驱逐算法)
+
   ![](./http-cache/HTTPStaleness.png)
+  
   * If-None-Match 在资源过期后，客户端会携带该请求头请求服务器资源，若返回 `304(Not Modify)`， 则表示资源还是新鲜的，该请求会返回空内容. 同时刷新当前过期计时，重新开始计算过期时间
   * If-Modified-Since 
   若服务器通过 `If-None-Match`或者 `If-Modified-Since` 检测资源已经修改，则会在请求中发回新的资源,图示则表示资源资源的处理过程. 缓存计算公式:
