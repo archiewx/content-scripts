@@ -41,6 +41,7 @@ class DoublyLinkedList {
       return this;
     }
 
+    this.head.previous = node;
     this.head = node;
 
     return this;
@@ -62,9 +63,14 @@ class DoublyLinkedList {
   delete(v) {
     while (this.head && this.head.value === v) {
       this.head = this.head.next;
+      this.head.previous = null;
     }
 
-    if (!this.head) return this;
+    if (!this.head) {
+      this.head = null;
+      this.tail = null;
+      return this;
+    }
 
     let previousNode = this.head;
     let curvNode = this.head.next;
@@ -72,17 +78,16 @@ class DoublyLinkedList {
     // 这里遍历的长度为 length - 1
     while (curvNode) {
       if (curvNode.value === v) {
-        previousNode.next = curvNode.next;
+        const nextNode = curvNode.next;
+        if (nextNode) nextNode.previous = previousNode;
+        previousNode.next = nextNode;
       } else {
         previousNode = curvNode;
       }
       curvNode = curvNode.next;
     }
 
-    if (this.tail === curvNode && curvNode.value === v) {
-      previousNode.next = null;
-      this.tail = previousNode;
-    }
+    this.tail = previousNode;
 
     return this;
   }
@@ -114,10 +119,10 @@ class DoublyLinkedList {
     const ves = [];
     let curvNode = this.head;
     while (curvNode) {
-      ves.push(curvNode.value);
+      ves.push(curvNode);
       curvNode = curvNode.next;
     }
-    return ves.join(',');
+    return ves;
   }
 }
 
@@ -125,12 +130,12 @@ const doublyLinkedList = new DoublyLinkedList();
 
 doublyLinkedList.append(20).append(30).prepend(100).append(50);
 
-console.log(doublyLinkedList.toString());
+// console.log(doublyLinkedList.toString(), doublyLinkedList);
 
 doublyLinkedList.reverse();
-console.log(doublyLinkedList.toString());
+// console.log(doublyLinkedList.toString(), doublyLinkedList);
 
 doublyLinkedList.delete(100);
-console.log(doublyLinkedList.toString());
-doublyLinkedList.delete(30);
-console.log(doublyLinkedList.toString());
+console.log(doublyLinkedList.toString(), doublyLinkedList);
+// doublyLinkedList.delete(30);
+// console.log(doublyLinkedList.toString());
