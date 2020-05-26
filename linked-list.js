@@ -78,6 +78,17 @@ class LinkedList {
     return null;
   }
 
+  findByCallback(callback) {
+    let cuvNode = this.head
+    while(cuvNode) {
+      if (callback(cuvNode)) {
+        return cuvNode
+      }
+      cuvNode = cuvNode.next
+    }
+    return null
+  }
+
   // 反转
   reverse() {
     let prevNode = null,
@@ -109,11 +120,4 @@ class LinkedList {
   }
 }
 
-const linked = new LinkedList();
-linked.append(20).append(30).append(40).append(50).append(80).append(50).prepend(50);
-
-console.log(linked.toString());
-
-linked.reverse();
-
-console.log(linked.toString());
+module.exports = LinkedList
