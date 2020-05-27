@@ -23,7 +23,7 @@ SSL: security sockets layer， 安全套接字层协议 TLS: transfer layer secu
 
 ### 第二阶段: 校验服务端证书
 
-3. Certificate: 服务器下发证书给客户端, 客户端来验证服务端身份，并取出`公钥`
+3. Certificate: 服务器下发证书给客户端, 让客户端来验证服务端身份, 验证有效的情况下，取出证书`公钥`
 4. Server Key Exchange: 如果使用 DH 算法，需要交换发送服务端使用 DH 参数。对于 RSA 则不需要
 5. Certificate Request: 服务端可以要求客户端上传证书，这一步是可选的
 6. Server Hello Done: 从这一步服务端通知客户端 Server Hello 过程结束。
@@ -31,10 +31,10 @@ SSL: security sockets layer， 安全套接字层协议 TLS: transfer layer secu
 ### 第三阶段: 生成 PreMasterKey
 
 7. Certificate Verify: 客户端收到服务器下发的证书后，去 CA(证书验证服务商)哪里校验证书是否有效, 有效的情况取出证书公钥，
-   然后服务器会在生成一个随机数 3 `Random3`， 然后通过证书公钥对 `Random3`加密， 生成 PreMasterKey 8: Client Key
-8. Exchange: 客户端会把 PreMasterKey 传递给服务器， 服务器使用证书私钥解通过 PreMasterKey 获取得到 `Random3`, 从这一步开
-   始，服务器和客户端都拥有了 `Random1 + Random2 + Random3`。客户端和服务器依据相同的算法，通过三个数据数得到一个新的密
-   钥。
+   然后服务器会在生成一个随机数 3 `Random3`， 然后通过证书公钥对 `Random3`加密， 生成 PreMasterKey
+8. Client Key Exchange: 客户端会把 PreMasterKey 传递给服务器， 服务器使用证书私钥解通过 PreMasterKey 获取得到 `Random3`,
+   从这一步开始，服务器和客户端都拥有了 `Random1 + Random2 + Random3`。客户端和服务器依据相同的算法，通过三个数据数得到
+   一个新的密钥。
    > PS：使用三个随机数的原因是因为 ssl/tls 在握手过程中数据都是明文传递的，使用多个随机数种子来生成密钥不容易被暴力破解
 
 ### 第四阶段: 通知结束 SSL
@@ -46,9 +46,11 @@ SSL: security sockets layer， 安全套接字层协议 TLS: transfer layer secu
 12. Encrypted Handshake Message(server): 服务端把握手过程信息再要通过新的密钥加密发送给客户端，如果客户端能够解密信息，
     则表示密钥一直.这是服务器发送的第一条加密信息
 
-到这里，客户端和服务端协商出来同一份密钥，后续信息都会通过该密钥加密，然后通过TCP进行可靠传输。
+到这里，客户端和服务端协商出来同一份密钥，后续信息都会通过该密钥加密，然后通过 TCP 进行可靠传输。
 
 ## 握手优化
 
 - 通过 SessionID，下次 ssl 握手时候，若携带 sessionID，则复用之前过程，不再重新握手
 - False Start: 在握手时候就一次把数据都传递过去
+
+> https://www.jianshu.com/p/7158568e4867
