@@ -41,38 +41,31 @@ async function multipleRequest(urls = [], maxCount = 3, callback) {
 
   const runQueue = urls.slice(0, maxCount);
   const waitQueue = urls.slice(maxCount);
+  const results = [];
 
-  const runTask = () => {
-    if (!waitQueue.length) return;
-
+  const runTask = (results) => {
     while (runQueue.length) {
       const url = runQueue.shift();
       get(url)
         .then((res) => {
-          callback(res);
-          const waitUrl = waitQueue.shift();
-          runQueue.push(waitUrl);
-          console.log('请求完成')
+          results.push(res);
+          if (waitQueue.length) {
+            const waitUrl = waitQueue.shift();
+            runQueue.push(waitUrl);
+          }
+          if (results.length === urls.length) {
+            callback(results);
+          }
         })
         .finally(() => {
-          runTask();
+          runTask(results);
         });
     }
   };
-  runTask();
+  runTask(results);
 }
 multipleRequest(
   [
-    '/imported-maps.json',
-    '/imported-maps.json',
-    '/imported-maps.json',
-    '/imported-maps.json',
-    '/imported-maps.json',
-    '/imported-maps.json',
-    '/imported-maps.json',
-    '/imported-maps.json',
-    '/imported-maps.json',
-    '/imported-maps.json',
     '/imported-maps.json',
     '/imported-maps.json',
     '/imported-maps.json',
