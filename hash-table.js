@@ -77,8 +77,4 @@ class HashTable {
   }
 }
 
-const hashTable = new HashTable();
-
-hashTable.set('aa', 23).set('bb', 33).set('ccc', 32);
-
-console.log(hashTable)
+module.exports = HashTable
