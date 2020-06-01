@@ -19,6 +19,8 @@ function curry() {
 function add(a, b, c, d) {
   return a + b + c + d;
 }
-const currayAdd = curry(add)
+const currayAdd = curry(add);
 
-console.log(currayAdd(1)(2)(3)(10))
+// console.log(currayAdd(1)(2)(3)(10));
+
+console.log(currayAdd(1, 2)(3, 4));
