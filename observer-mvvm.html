@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./observer-mvvm.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <div>{{message}}</div>
+      <div v-on:click="handleClick">
+        <div>姓名: {{name}} {{age}} {{object.a}}</div>
+      </div>
+      <input v-model="message" />
+      <input v-model="age" />
+      <input v-model="name" />
+      <div>{{counter}}</div>
+      <button v-on:click="handleIncrease">increase</button>
+      <button v-on:click="handleReduce">reduce</button>
+    </div>
+    <script>
+      const vm = new SimpleVue({
+        el: document.querySelector('#app'),
+        data: {
+          message: 'hello world',
+          age: 18,
+          name: '王小胖几',
+          counter: 0,
+          object: {
+            a: 100
+          }
+        },
+        methods: {
+          handleClick(e) {
+            this.age = Math.floor(Math.random() * 100)
+            this.object.a = Math.random()
+            console.log(e, this)
+          },
+          handleIncrease() {
+            this.counter += 1
+          },
+          handleReduce() {
+            this.counter -= 1
+          }
+        }
+      })
+      console.log(vm)
+    </script>
+  </body>
+
+</html>
