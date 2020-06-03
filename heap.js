@@ -8,6 +8,7 @@ class Heap {
     this.heapContainer = [];
   }
 
+  // 这个正好和getParentIndex 相反
   getLeftChildIndex(parentIndex) {
     return parentIndex * 2 + 1;
   }
@@ -54,6 +55,7 @@ class Heap {
     return this.heapContainer[0];
   }
 
+  // 这个就是将最后一个节点和顶点交换，顶点节点出堆
   poll() {
     if (!this.heapContainer.length) return null;
 
@@ -71,7 +73,7 @@ class Heap {
     const targets = [];
     for (let index = 0; index < this.heapContainer.length; index++) {
       if (this.heapContainer[index] === v) {
-        targets.push(this.heapContainer[index]);
+        targets.push(index);
       }
     }
     return targets;
@@ -88,46 +90,86 @@ class Heap {
     return this;
   }
 
-  remove() {}
+  remove(item) {
+    // 获取移除的长度
+    const removeLen = this.find(item).length;
+
+    for (let index = 0; index < item; index++) {
+      // 获取当前移除下标
+      const removeItemIndex = this.find(item).pop();
+
+      // 判断下标是否等于堆容器最后一个下标
+      if (removeItemIndex === this.heapContainer.length - 1) {
+        this.heapContainer.pop();
+      } else {
+        // 若不是最后最后一个，则就把堆最后一个元素填充到要移除的位置
+        this.heapContainer[removeItemIndex] = this.heapContainer.pop();
+
+        if (
+          this.getParentIndex(removeItemIndex) &&
+          (!this.parent(removeItemIndex) ||
+            this.pairIsInCorrectOrder(this.parent(removeItemIndex), this.heapContainer[removeItemIndex]))
+        ) {
+          this.heapifyDown(removeItemIndex);
+        } else {
+          this.heapifyUp(removeItemIndex);
+        }
+      }
+    }
+    return this
+  }
 
   heapifyUp(customStartIndex) {
-    let customIndex = customStartIndex || this.heapContainer.length - 1;
+    let currentIndex = customStartIndex || this.heapContainer.length - 1;
 
+    // 用来比较heap内部顺序，每次添加时候就调用从下自上排序
+    // 最大堆 要求当前节点始终小于父级节点, 否则swap
+    // 最小堆 要求当前节点始终大于父级节点， 否则swap
     while (
-      this.hasParent(customIndex) &&
-      !this.pairIsInCorrectOrder(this.parent(customIndex), this.heapContainer[customIndex])
+      this.hasParent(currentIndex) &&
+      !this.pairIsInCorrectOrder(this.parent(currentIndex), this.heapContainer[currentIndex])
     ) {
-      this.swap(customIndex, this.getParentIndex(customIndex));
-      customIndex = this.getParentIndex(customIndex);
+      this.swap(currentIndex, this.getParentIndex(currentIndex));
+      currentIndex = this.getParentIndex(currentIndex);
     }
   }
 
+  // 执行poll或者remove 操作后，从自上而下
   heapifyDown(customStartIndex = 0) {
-    let customIndex = customStartIndex,
+    let currentIndex = customStartIndex,
       nextIndex = null;
-    while (this.hasLeftChild(customIndex)) {
+    while (this.hasLeftChild(currentIndex)) {
+      // 这里判断是否有右节点, 若有则比较
+      // 最大堆 右侧节点大于左侧节点
+      // 最小堆 右侧节点小于左侧节点
+      // 这里主要获取下一个节点
       if (
-        this.hasRightChild(customIndex) &&
-        this.pairIsInCorrectOrder(this.rightChild(customIndex), this.leftChild(customIndex))
+        this.hasRightChild(currentIndex) &&
+        // 这里通过比较顺序，得到最大堆的最大值，最小堆的最小值
+        this.pairIsInCorrectOrder(this.rightChild(currentIndex), this.leftChild(currentIndex))
       ) {
-        nextIndex = this.getRightChildIndex(customIndex);
+        // 继续获取下一个右侧节点
+        nextIndex = this.getRightChildIndex(currentIndex);
       } else {
-        nextIndex = this.getLeftChildIndex(customIndex);
+        // 不存在右侧节点，继续获取左侧节点
+        nextIndex = this.getLeftChildIndex(currentIndex);
       }
 
-      if (this.pairIsInCorrectOrder(this.heapContainer[customIndex], this.heapContainer[nextIndex])) {
+      // 这里比较当前节点(父级)和他的下一个子节点， 若符合顺序要求，就跳出循环
+      if (this.pairIsInCorrectOrder(this.heapContainer[currentIndex], this.heapContainer[nextIndex])) {
         break;
       }
 
-      this.swap(customIndex, nextIndex);
-      customIndex = nextIndex;
+      // 这里交换当前节点和它的下一个子节点
+      this.swap(currentIndex, nextIndex);
+      currentIndex = nextIndex;
     }
   }
 
-  pairIsInCorrectOrder(firstElement, secondElement) {
+  pairIsInCorrectOrder(parentElement, childElement) {
     throw new Error(`
       You have to implement heap pair comparision method
-      for ${firstElement} and ${secondElement} values.
+      for ${parentElement} and ${childElement} values.
     `);
   }
 }
@@ -144,13 +186,15 @@ class MaxHeap extends Heap {
   }
 }
 
-const minHeap = new MinHeap()
+// const minHeap = new MinHeap();
 
-minHeap.add(2).add(5)
+// minHeap.add(2).add(5).add(3).add(6);
 
-console.log(minHeap)
+// console.log(minHeap);
+// minHeap.heapifyDown()
 
-const maxHeap = new MaxHeap()
-maxHeap.add(2).add(5)
-console.log(maxHeap)
+// const maxHeap = new MaxHeap();
+// maxHeap.add(2).add(5).add(3).add(6);
+// console.log(maxHeap);
 
+exports.MinHeap = MinHeap

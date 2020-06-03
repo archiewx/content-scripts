@@ -46,7 +46,7 @@ function quickSort(arr = []) {
 }
 
 function quickSortInPlace(array = [], lowIndex = 0, highIndex = array.length - 1) {
-  if (array.length <= 1) return array
+  if (array.length <= 1) return array;
 
   const partitionArray = (lowIndex, highIndex) => {
     const pivot = array[highIndex];
@@ -80,4 +80,18 @@ function quickSortInPlace(array = [], lowIndex = 0, highIndex = array.length - 1
 console.log(quickSort([...array]));
 console.log(quickSortInPlace([2, 1, 3, 4]));
 
-function heapSort() {}
+const { MinHeap } = require('./heap');
+function heapSort(array = []) {
+  const _array = array.slice();
+  const minHeap = new MinHeap();
+  while (_array.length) {
+    minHeap.add(_array.shift());
+  }
+
+  while (!minHeap.isEmpty()) {
+    _array.push(minHeap.poll());
+  }
+  return _array
+}
+
+console.log(heapSort(array));
