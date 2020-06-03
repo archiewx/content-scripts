@@ -42,6 +42,6 @@ Sequence number: 序列号码 Acknowledgement number: 确认号码
   number + 1, 然后主机 1 进入 FIN_WAIT_2
 - 第三次分手: 主机 2 发送 FIN 报文给主机 1, 请求关闭连接, 同时主机进入 LAST_ACK 状态
 - 第四次分手: 主机 1 收到 主机 2 的 FIN 报文， 向主机 2 发送 ACK 报文， 主机 1 进入 TIME_WAIT 状态, 主机 2 在收到 ACK 报
-  文后，就会关闭连接，主机在在等待 2MSL(maximum segment lifetime) -> 即两倍最大报文生命周期 没有收到回复就证明主机2已经关闭，然后主机1也会关闭
+  文后，就会关闭连接，主机1在在等待 2MSL(maximum segment lifetime) -> 即两倍最大报文生命周期 没有收到回复就证明主机2已经关闭，然后主机1也会关闭
 
 > 学习: https://github.com/jawil/blog/issues/14
