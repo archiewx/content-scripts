@@ -124,7 +124,7 @@ class BinaryTreeNode {
 // 二叉搜索树节点
 // 再一个二叉搜索树中，如果左子树不空，左子树恒小于根节点
 // 如果有一个右侧子树，右侧子树恒大于根节点
-// 左右子树都是二叉排序树
+// 左右子树都是二叉排序树 ->> 二叉排序树就是二叉查找树
 // 键值不等
 class BinarySearchTreeNode extends BinaryTreeNode {
   constructor(v) {
@@ -138,15 +138,21 @@ class BinarySearchTreeNode extends BinaryTreeNode {
     }
 
     const node = new BinarySearchTreeNode(v);
+    // 若插入的值大于当前节点值, 放置到右侧
     if (this.value < v) {
+      // 如果右节点不为空，就使用右节点insert方法
       if (this.right) this.right.insert(v);
+      // 否则直接设置右节点
       else this.setRight(node);
 
       return node;
     }
 
+    // 若插入的值小于当前值，放置到左侧
     if (this.value > v) {
+      // 判断左侧是否有元素，依次执行下去
       if (this.left) this.left.insert(v);
+      // 否则直接设置左节点
       else this.setLeft(node);
       return node;
     }
@@ -157,14 +163,17 @@ class BinarySearchTreeNode extends BinaryTreeNode {
   find(v) {
     if (this.value === v) return this;
 
+    // 根据二叉排序树特点, 大于当前值就去右侧find
     if (this.value < v && this.right) {
       return this.right.find(v);
     }
 
+    // 否则就在左侧find
     if (this.value > v && this.left) {
       return this.left.find(v);
     }
 
+    // 最后返回null
     return null;
   }
 
@@ -185,30 +194,39 @@ class BinarySearchTreeNode extends BinaryTreeNode {
       else nodeToRemove.setValue(undefined);
       // 若移除元素存在左右子树
     } else if (nodeToRemove.left && nodeToRemove.right) {
-      // 通过右侧子树查找最小值
+      // 通过右侧子树查找最小值, 以满足BST 规则
+      // 这里查找到相当于 当前节点right节点的最小值
       const nextBiggerNode = nodeToRemove.right.findMin();
-      // NOTE: 这里还有疑问?
       if (nextBiggerNode !== nodeToRemove.right) {
+        // 这里如果说下一级节点不是right节点本身, 就递归删除right节点的左侧节点
         this.remove(nextBiggerNode.value);
+        // 最后将要移除的节点值用right节点的left值覆盖掉
         nodeToRemove.setValue(nextBiggerNode.value);
       } else {
+        // 下一个节点就是right节点本身。就直接用覆盖掉移除节点。(满足父级节点大于left节点值)
         nodeToRemove.setValue(nodeToRemove.right.value);
         nodeToRemove.setRight(nodeToRemove.right.right);
       }
     } else {
+      // 到这里判断条件，移除的节点只存在一个left或者right节点
       const childNode = nodeToRemove.left || nodeToRemove.right;
       if (nodeToRemove.parent) {
+        // 存在父级，就直接replace
         nodeToRemove.parent.replaceChild(nodeToRemove, childNode);
       } else {
+        // 不存在父级节点，且只有一个子节点情况下，直接copy 移除节点
         BinarySearchTreeNode.copyNode(childNode, nodeToRemove);
       }
     }
 
+    // 所有操作完成，需要把移除节点的父级给断开
+    // 这里还有疑问?
     nodeToRemove.parent = null;
 
     return true;
   }
 
+  // 查询最小值，只能在左子树上寻找
   findMin() {
     if (!this.left) return this;
 
@@ -238,11 +256,12 @@ class BinaryTree {
   }
 }
 
-const tree = new BinaryTree()
+const tree = new BinaryTree();
+module.exports = tree;
 
-tree.insert(50).insert(20)
-tree.insert(90)
+// tree.insert(50).insert(20)
+// tree.insert(90)
 
-tree.remove(50)
-console.log(tree)
-console.log(tree.root.leftHeight, tree.root.height)
+// tree.remove(50)
+// console.log(tree)
+// console.log(tree.root.leftHeight, tree.root.height)
