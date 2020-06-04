@@ -65,11 +65,17 @@ function testMicroAndMacro() {
     });
   });
 
+  setImmediate(() => {
+    console.log('immediate 2')
+  })
+
   // 在第一次宏任务执行完成后，微任务执行前执行
   process.nextTick(() => {
     console.log('tick');
   });
 }
+
+testMicroAndMacro()
 
 // 如果不断给微任务插入微任务，任务是不是就不会结束
 // 严格按照事件循环，不断清空前一次堆栈后再次执行下一次循环。微任务总是在当次宏任务执行完成后执行。
@@ -89,5 +95,3 @@ function test2() {
     console.log(i);
   }
 }
-
-test2();
