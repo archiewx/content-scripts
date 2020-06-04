@@ -67,8 +67,7 @@ const o = {
   // dd: new Date(),
   // cc: new Map([['a', 2]]),
 };
-// o.ff = o;
-// o.cc.set('cir', o)
+o.ff = o;
 o.c.bb = o.c1;
 
 console.log(o);
@@ -77,3 +76,44 @@ console.log(o1);
 // console.log(o.dd === o1.dd, o.cc === o1.cc);
 // console.log(o.ff === o1.ff)
 console.log(o.c.bb === o1.c1);
+
+const o2 = deepCopyByWeakMap(o)
+console.log('o2', o2)
+console.log(o.c.bb === o1.c1)
+
+function deepCopyByWeakMap(o, hash = new WeakMap()) {
+  if (typeof o !== 'object') throw new Error('only the object use the deep copy');
+
+  let cloneObj;
+  if (Array.isArray(o)) cloneObj = [];
+  else cloneObj = {};
+
+  for (const key in o) {
+    if (o.hasOwnProperty(key)) {
+      const element = o[key];
+      // 判断是否存在已有的对象
+      if (hash.get(element)) return hash.get(element);
+
+      hash.set(o, o);
+
+      if (typeof element === 'object') {
+        const tag = getTag(element);
+        const Ctor = element.constructor;
+        switch (tag) {
+          case arrayTag:
+          case objectTag:
+            cloneObj[key] = deepCopy(element, hash);
+            break
+          case dateTag:
+            cloneObj[key] = new Ctor(+element);
+            break
+          default:
+          // 其他处理
+        }
+      } else {
+        cloneObj[key] = element;
+      }
+    }
+  }
+  return cloneObj
+}
