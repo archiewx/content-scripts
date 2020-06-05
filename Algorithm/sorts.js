@@ -80,7 +80,7 @@ function quickSortInPlace(array = [], lowIndex = 0, highIndex = array.length - 1
 console.log(quickSort([...array]));
 console.log(quickSortInPlace([2, 1, 3, 4]));
 
-const { MinHeap } = require('./heap');
+const { MinHeap } = require('../Data-Structure/heap');
 function heapSort(array = []) {
   const _array = array.slice();
   const minHeap = new MinHeap();
