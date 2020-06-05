@@ -1,3 +1,4 @@
+// 动态规划
 function cutRope(number) {
   const array = [];
 
@@ -17,6 +18,7 @@ function cutRope(number) {
 }
 console.log(cutRope(8));
 
+// 贪心算法
 function cutRope1(number) {
   if (number === 2) return 1;
 
