@@ -9,6 +9,8 @@ function cutRope(number) {
     if (m === number) array[m] = 1;
     else array[m] = m;
     for (let n = 1; n < m; n++) {
+      // 转移方程 f[n] = max{f[n], f[m] * f[n-m]}
+      // 解释: 长度为n 的绳子最大乘值是 当前绳子长度值与 m长的绳子的值和n-m绳子最长的值成绩
       array[m] = Math.max(array[m], array[n] * array[m - n]);
     }
   }
