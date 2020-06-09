@@ -1,5 +1,5 @@
 function jumpFloorII(number) {
-  if (number === 0) return -1;
+  if (number === 0) return 0;
 
   if (number === 1) return 1;
 
@@ -8,3 +8,15 @@ function jumpFloorII(number) {
 }
 
 console.log(jumpFloorII(20))
+
+function jumpFloorII1(number) {
+  var jumpFlr = 1
+  while(--number) {
+    jumpFlr *= 2
+  }
+
+  return jumpFlr
+}
+
+console.log(jumpFloorII1(20))
+console.log(Math.pow(2, 20 - 1))
