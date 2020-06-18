@@ -26,3 +26,8 @@ function fibonacci1(n) {
 }
 console.log(fibonacci1(10))
 
+
+function fibonacci2(n) {
+  return (n + 1) * (n + 2) / 2
+}
+console.log(fibonacci1(10))
