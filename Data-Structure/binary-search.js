@@ -18,4 +18,4 @@ function binarySearch(sortedArray = [], n) {
   return -1;
 }
 
-console.log(binarySearch([1, 2, 3, 4, 8, 20], 2))
+console.log(binarySearch([1, 2, 3, 4, 8, 20], 10))
