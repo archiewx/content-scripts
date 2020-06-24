@@ -12,10 +12,19 @@
 - [洗牌算法](./algorithm/shuffle.js)
 - [排序数组合并](./algorithm/sorted-array-combine.js)
 - [排序](./algorithm/sorts.js)
+- [深度优先遍历(DFS)](./algorithm/depth-first-search.js)
+- [广度优先遍历(BFS)](./algorithm/breath-first-search.js)
+- [叶子数字求和](./algorithm/tree-sum.js)
 
 ## 数据结构相关
 
 - [单链表](./data-structure/linked-list.js)
+- [双链表](./data-structure/linked-list.js)
+- [栈(单链表实现)](./data-structure/linked-list.js)
+- [队列(单链表实现)](./data-structure/linked-list.js)
+- [堆(最大堆、最小堆)](./data-structure/linked-list.js)
+- [哈希表(链表解决hash碰撞问题)](./data-structure/linked-list.js)
+- [二叉树](./data-structure/linked-list.js)
 
 ## react 相关
 
