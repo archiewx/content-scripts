@@ -20,7 +20,9 @@ class EventEmitter {
   once(key, fn) {
     const item = this.queue.find((item) => item.key === key);
     if (!item) this.queue.push({ key, tempListeners: [fn] });
-    else item.tempListeners.push(fn);
+    else {
+      item.tempListeners = (item.tempListeners || []).concat(fn)
+    }
   }
 
   emit(key, ...args) {
