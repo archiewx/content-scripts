@@ -5,6 +5,16 @@ class LinkedNode {
   }
 }
 
+/**
+链表操作的时间复杂度是相对的一般来说:
+访问复杂度: O(n)
+查找复杂度: O(n)
+添加复杂度: 最优 O(1), 最差 O(n)
+删除复杂度: 最优 O(1), 最差 O(n)
+添加和删除要看具体场景，例如插入或删除中间的位置，那么添加和删除的复杂度就会变成O(n),因为要先访问，再操作。
+不过链表的真正在变更添加和删除的时候复杂度始终是O(1)。
+*/
+
 class LinkedList {
   constructor() {
     /** @type {LinkedNode} */
@@ -40,30 +50,35 @@ class LinkedList {
     return this;
   }
 
-  // 删除 todo: 有问题
   delete(v) {
+    let deletedNode = null;
     while (this.head && this.head.value === v) {
+      deletedNode = this.head;
       this.head = this.head.next;
     }
 
-    if (!this.head) return null;
+    if (!this.head) return deletedNode;
 
     let prevNode = this.head;
-    let curvNode = this.head.next;
+    let currNode = this.head.next;
 
-    while (curvNode) {
-      if (curvNode.value === v) {
-        prevNode.next = curvNode.next;
+    while (currNode) {
+      if (currNode.value === v) {
+        deletedNode = currNode;
+        prevNode.next = currNode.next;
       } else {
-        prevNode = curvNode;
+        prevNode = currNode;
       }
-      curvNode = curvNode.next;
+      currNode = currNode.next;
     }
 
-    if (curvNode === this.tail && this.tail.value === v) {
-      this.tail = prevNode;
-    }
-    return this;
+    this.tail = prevNode;
+    // if (currNode === this.tail && this.tail.value === v) {
+    //   deletedNode = this.tail;
+    //   prevNode.next = null;
+    //   this.tail = prevNode;
+    // }
+    return deletedNode;
   }
 
   // 查询
@@ -121,3 +136,12 @@ class LinkedList {
 }
 
 module.exports = LinkedList
+
+const list = new LinkedList()
+list.append(0)
+list.append(1)
+list.append(2)
+list.append(3)
+console.log(list.toString());
+console.log(list.delete(0));
+console.log(list.toString(), list.head.value, list.tail.value)

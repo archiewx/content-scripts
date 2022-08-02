@@ -61,7 +61,9 @@ class DoublyLinkedList {
 
   // 删除
   delete(v) {
+    let deletedNode = null;
     while (this.head && this.head.value === v) {
+      deletedNode = this.head;
       this.head = this.head.next;
       this.head.previous = null;
     }
@@ -69,27 +71,28 @@ class DoublyLinkedList {
     if (!this.head) {
       this.head = null;
       this.tail = null;
-      return this;
+      return deletedNode;
     }
 
     let previousNode = this.head;
-    let curvNode = this.head.next;
+    let currNode = this.head.next;
 
     // 这里遍历的长度为 length - 1
-    while (curvNode) {
-      if (curvNode.value === v) {
-        const nextNode = curvNode.next;
+    while (currNode) {
+      if (currNode.value === v) {
+        deletedNode = currNode;
+        const nextNode = currNode.next;
         if (nextNode) nextNode.previous = previousNode;
         previousNode.next = nextNode;
       } else {
-        previousNode = curvNode;
+        previousNode = currNode;
       }
-      curvNode = curvNode.next;
+      currNode = currNode.next;
     }
 
     this.tail = previousNode;
 
-    return this;
+    return deletedNode;
   }
 
   // 旋转
@@ -119,7 +122,7 @@ class DoublyLinkedList {
     const ves = [];
     let curvNode = this.head;
     while (curvNode) {
-      ves.push(curvNode);
+      ves.push(curvNode.value);
       curvNode = curvNode.next;
     }
     return ves;
@@ -128,14 +131,15 @@ class DoublyLinkedList {
 
 const doublyLinkedList = new DoublyLinkedList();
 
-doublyLinkedList.append(20).append(30).prepend(100).append(50);
+doublyLinkedList.append(20).append(30).append(50).append(100);
 
 // console.log(doublyLinkedList.toString(), doublyLinkedList);
 
-doublyLinkedList.reverse();
+// doublyLinkedList.reverse();
 // console.log(doublyLinkedList.toString(), doublyLinkedList);
 
+console.log(doublyLinkedList.toString())
 doublyLinkedList.delete(100);
-console.log(doublyLinkedList.toString(), doublyLinkedList);
+console.log(doublyLinkedList.toString());
 // doublyLinkedList.delete(30);
 // console.log(doublyLinkedList.toString());
