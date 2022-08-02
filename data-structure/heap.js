@@ -116,7 +116,7 @@ class Heap {
         this.heapContainer[removeItemIndex] = this.heapContainer.pop();
 
         if (
-          this.getParentIndex(removeItemIndex) &&
+          this.hasLeftChild(removeItemIndex) &&
           (!this.parent(removeItemIndex) ||
             this.pairIsInCorrectOrder(
               this.parent(removeItemIndex),
@@ -212,13 +212,13 @@ class MaxHeap extends Heap {
   }
 }
 
-const minHeap = new MinHeap();
+const maxHeap = new MaxHeap();
 
-minHeap.push(2).push(5).push(3).push(6);
+maxHeap.push(2).push(5).push(3).push(6);
 
-console.log(minHeap);
-minHeap.pop();
-console.log(minHeap);
+console.log(maxHeap);
+maxHeap.delete(6);
+console.log(maxHeap);
 // minHeap.heapifyDown()
 
 // const maxHeap = new MaxHeap();
