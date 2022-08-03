@@ -5,7 +5,9 @@ function bubbleSort(arr = []) {
   let count = 0;
   for (let m = 1; m < arr.length; m++) {
     for (let n = 0; n < arr.length - m; n++) {
+      // 总是把最大的值移动到最后，然后重复将n-1个值比较
       if (arr[n] > arr[n + 1]) {
+        count ++;
         [arr[n], arr[n + 1]] = [arr[n + 1], arr[n]];
       }
     }
