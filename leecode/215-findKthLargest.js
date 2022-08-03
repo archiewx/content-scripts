@@ -3,8 +3,41 @@ https://leetcode.cn/problems/kth-largest-element-in-an-array/
 */
 // 思路：先排序，返回sortNums[k - 1] 的值
 var findKthLargest = function(nums, k) {
-
+  const size = nums.length;
+  buildMaxHeap(nums, size);
+  // 获取k-1的结果返回，例如：返回第2大的值，那么需要把第一大的值移除堆
+  while(k-1) {
+    nums[0] = nums.pop();
+    maxHeapify(nums, 0, nums.length)
+    k--;
+  }
+  return nums[0]
 };
+console.log(findKthLargest([1, 2, 3, 4, 6, 5], 4));
+
+function buildMaxHeap(nums, size) {
+  for (let index = Math.floor((size - 2)/2); index >= 0; index--) {
+    maxHeapify(nums, index, size);
+  }
+}
+
+function maxHeapify(nums, i, size) {
+  let p = i;
+  let l = i * 2 + 1;
+  let r = i * 2 + 2;
+  if (l < size && nums[l] > nums[p]) {
+    p = l;
+  }
+
+  if (r < size && nums[r] > nums[p]) {
+    p = r;
+  }
+  
+  if (p !== i) {
+    [nums[p], nums[i]] = [nums[i], nums[p]];
+    maxHeapify(nums, p, size);
+  }
+}
 
 class MaxHeap {
   container = [];
@@ -143,8 +176,8 @@ class MaxHeap {
   }
 }
 
-const maxHeap = new MaxHeap();
-maxHeap.push(2).push(5).push(3).push(6);
-console.log(maxHeap);
-maxHeap.delete(6);
-console.log(maxHeap);
+// const maxHeap = new MaxHeap();
+// maxHeap.push(2).push(5).push(3).push(6);
+// console.log(maxHeap);
+// maxHeap.delete(6);
+// console.log(maxHeap);

@@ -2,27 +2,20 @@
 
 // 冒泡排序: 时间复杂度O(n^2), 最好是O(n)
 function bubbleSort(arr = []) {
-  let swap = false;
   let count = 0;
-  for (let m = 0; m < arr.length; m++) {
-    swap = false;
-    for (let n = 0; n < arr.length; n++) {
-      if (arr[m] < arr[n]) {
-        count++;
-        [arr[m], arr[n]] = [arr[n], arr[m]];
-        swap = true;
+  for (let m = 1; m < arr.length; m++) {
+    for (let n = 0; n < arr.length - m; n++) {
+      if (arr[n] > arr[n + 1]) {
+        [arr[n], arr[n + 1]] = [arr[n + 1], arr[n]];
       }
     }
-
-    // 如果没有交换了，则说明数组已经排序好。直接返回
-    if (!swap) return arr;
   }
   console.log('执行次数', count);
   return arr;
 }
 
-const array = [1, 10, 3, 2, 8, 6, 5, 9];
-console.log(bubbleSort([...array]));
+const array = [20, 1, 10, 3, 2, 8, 6, 5, 9];
+console.log('冒泡', bubbleSort([...array]));
 
 // 快排就是分组排序
 function quickSort(arr = []) {
@@ -85,11 +78,11 @@ function heapSort(array = []) {
   const _array = array.slice();
   const minHeap = new MinHeap();
   while (_array.length) {
-    minHeap.add(_array.shift());
+    minHeap.push(_array.shift());
   }
 
   while (!minHeap.isEmpty()) {
-    _array.push(minHeap.poll());
+    _array.push(minHeap.pop());
   }
   return _array
 }
