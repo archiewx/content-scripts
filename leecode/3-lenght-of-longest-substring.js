@@ -62,7 +62,7 @@ const lengthOfLongestSubstring2 = function (s) {
   return max;
 };
 
-console.log(lengthOfLongestSubstring2('abcabcbb'));
+console.log(lengthOfLongestSubstring('abcabcbb'));
 console.log(lengthOfLongestSubstring2('bbbbb'));
 console.log(lengthOfLongestSubstring2('pwwkew'));
 console.log(lengthOfLongestSubstring2('abba'));

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script>
+    window.addEventListener('error', (e) => {
+      if (e.target instanceof HTMLScriptElement) {
+        console.log('脚本错误', e.target.src);
+        return
+      }
+      if (e.target instanceof HTMLLinkElement) {
+        console.log('资源加载问题', e.target.href)
+        return
+      }
+      if (e.target instanceof HTMLImageElement) {
+        console.log('图片加载有问题', e.target.src);
+        return
+      }
+      // 脚本错误
+      console.log('运行错误', e.error);
+    }, true);
+    setTimeout(() => {
+      throw new Error('哈哈哈');
+    }, 2000)
+    console.log(a.b);
+  </script>
+
+  <link rel="stylesheet" href="a.css" />
+</head>
+<body>
+  <script src="c.js"></script>
+  <img src="b.png" /> 
+</body>
+</html>
