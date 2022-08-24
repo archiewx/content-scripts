@@ -140,7 +140,7 @@ class BinarySearchTreeNode extends BinaryTreeNode {
     const node = new BinarySearchTreeNode(v);
     // 若插入的值大于当前节点值, 放置到右侧
     if (this.value < v) {
-      // 如果右节点不为空，就使用右节点insert方法
+      // 如果右节点不为空，就使用右节点当前insert方法
       if (this.right) this.right.insert(v);
       // 否则直接设置右节点
       else this.setRight(node);
@@ -234,7 +234,7 @@ class BinarySearchTreeNode extends BinaryTreeNode {
   }
 }
 
-class BinaryTree {
+class BinarySearchTree {
   constructor() {
     this.root = new BinarySearchTreeNode();
   }
@@ -256,7 +256,7 @@ class BinaryTree {
   }
 }
 
-const tree = new BinaryTree();
+const tree = new BinarySearchTree();
 module.exports = tree;
 
 // tree.insert(50).insert(20)

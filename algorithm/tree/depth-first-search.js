@@ -82,7 +82,7 @@ function infixDepthFirstSearch(root, callback) {
   }
 }
 
-// 后续遍历 left -> root -> right
+// 后续遍历 left -> right -> root
 function recursiveFollowDepthFirstSearch(root, callback) {
   if (root) {
     // 递归访问左节点

@@ -4,7 +4,6 @@ function debounce(fn, delay) {
   let timer = null;
   return function () {
     const args = Array.prototype.slice.call(arguments, 0);
-    const now = Date.now();
     if (timer) clearTimeout(timer);
 
     timer = setTimeout(() => {

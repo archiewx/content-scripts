@@ -57,3 +57,7 @@ Object.keys(obj).forEach(function (key) {
 deps.forEach((dep) => dep.notify())
 obj.a = 20
 obj.b = 200
+
+setTimeout(() => {
+  obj.b = 50;
+}, 3000);

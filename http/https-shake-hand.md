@@ -31,8 +31,8 @@ SSL: security sockets layer， 安全套接字层协议 TLS: transfer layer secu
 ### 第三阶段: 生成 PreMasterKey
 
 7. Certificate Verify: 客户端收到服务器下发的证书后，去 CA(证书验证服务商)哪里校验证书是否有效, 有效的情况取出证书公钥，
-   然后服务器会在生成一个随机数 3 `Random3`， 然后通过证书公钥对 `Random3`加密， 生成 PreMasterKey
-8. Client Key Exchange: 客户端会把 PreMasterKey 传递给服务器， 服务器使用证书私钥解通过 PreMasterKey 获取得到 `Random3`,
+   然后浏览器会在生成一个随机数 3 `Random3`， 然后通过证书公钥对 `Random3`加密， 生成 PreMasterKey
+8. Client Key Exchange: 客户端会把 PreMasterKey 传递给服务器， 服务器使用证书私钥通过 PreMasterKey 获取得到 `Random3`,
    从这一步开始，服务器和客户端都拥有了 `Random1 + Random2 + Random3`。客户端和服务器依据相同的算法，通过三个数据数得到
    一个新的密钥。
    > PS：使用三个随机数的原因是因为 ssl/tls 在握手过程中数据都是明文传递的，使用多个随机数种子来生成密钥不容易被暴力破解

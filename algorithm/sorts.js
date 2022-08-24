@@ -107,32 +107,32 @@ function quickSortInPlace(array = [], l = 0, r = array.length - 1) {
   // 如果排序左侧下标高于右侧下标则停止递归
   if (l >= r) return;
 
-  let s = l;
-  let b = r;
+  let ll = l;
+  let rr = r;
   // 任意寻找一个数据点分割
-  let markValue = array[l];
-  while (s < b) {
+  let centerVal = array[l];
+  while (ll < rr) {
     // 先判断右侧数据，大于锚点数据就左移
-    while(b > s && array[b] >= markValue) {
-      b --;
+    while(rr > ll && array[rr] >= centerVal) {
+      rr --;
     }
     // [6, 5, 1]
     // 判断右侧数据，小于锚点数据右移动
-    while(b > s && array[s] <= markValue) {
-      s ++;
+    while(rr > ll && array[ll] <= centerVal) {
+      ll ++;
     }
     // 这里是操作是，将基准数最右侧不满足的值，移动到基准数数左侧第一个不满足的位置
-    [array[s], array[b]] = [array[b], array[s]];
+    [array[ll], array[rr]] = [array[rr], array[ll]];
     // 重复操作，不断把区间内的小的值左移，大的值右移
     // 知道区间所有小的值有左移，大的值右移后，low/high 相遇
     // 这时候把基准值移动到low/high的位置，降低空间重复计算
     // 什么时候执行完成？s=b时候就暂停,只要在s++过程中
   }
-  array[l] = array[s];
-  array[s] = markValue;
+  array[l] = array[ll];
+  array[ll] = centerVal;
   console.log('归并-invoke =', array);
-  quickSortInPlace(array, l, s - 1);
-  quickSortInPlace(array, s + 1, r);
+  quickSortInPlace(array, l, ll - 1);
+  quickSortInPlace(array, ll + 1, r);
 }
 
 console.log(quickSort([...array]));

@@ -19,7 +19,7 @@ function applyMiddleware(middlewares = []) {
 
   const dispatch = middlewares
     .map((middleare) => middleare(middlewareAPI))
-    .reduce((prev, cuv) => (...args) => prev(curv(...args)));
+    .reduce((prev, cuv) => (...args) => prev(cuv(...args)));
 
   return dispatch
 }

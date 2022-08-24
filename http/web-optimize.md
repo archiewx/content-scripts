@@ -7,7 +7,7 @@ RAIL
 1. R: response -> 响应
 2. A: animation -> 流程的动画
 3. I: interactive -> 快速的交互
-4. L: load -> 加载过度
+4. L: load -> 加载过渡
 
 - 立即响应用户；在 100 毫秒以内确认用户输入。
 - 设置动画或滚动时，在 10 毫秒以内生成帧。

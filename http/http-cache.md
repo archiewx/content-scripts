@@ -25,7 +25,7 @@
 
   * no-store: 完全不使用缓存
   * no-cache: 使用缓存，但是会发送一个304请求
-  * max-age=N: N去秒值，代表N秒后过期
+  * max-age=N: N取秒值，代表N秒后过期
   * s-max-age=N: 同上，但是使用在共享缓存上
   * must-revalidate: 在使用缓存时候，必须校验资源的有效性
 
