@@ -31,3 +31,31 @@
 3. 如何做性能监控和异常监控?
 4. 前端安全方面，各种方式注入和预防？
 5. 工程化是什么？
+
+
+
+Vue双向绑定
+
+Object.definePropety和Proxy区别
+
+v-if和v-show区别
+
+HTTPS和HTTP区别
+
+TLS三次握手
+
+数字签名
+
+浏览器缓存
+
+cache-control
+
+cookie和session
+
+localStorage和sessionStorage
+
+口述算法：一堆数中的前十大数
+
+（小顶堆）
+
+反问
