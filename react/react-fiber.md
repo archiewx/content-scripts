@@ -48,6 +48,7 @@ patch 阶段 就是把这些改变提交到真实的节点上，进行一次性�
 
 ## 拆分之后如何调度任务
 
+
 这里分为两部分:
 
 - 工作循环
@@ -101,3 +102,4 @@ Fiber reconciliation 的工作循环流程:
 130ms 首页渲染可以在 30ms 内渲染完成
 
 参考: http://www.ayqy.net/blog/dive-into-react-fiber
+https://juejin.cn/post/6954352486312312845
