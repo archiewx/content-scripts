@@ -101,5 +101,7 @@ Fiber reconciliation 的工作循环流程:
 如果说工作任务可以拆分，那么意味着每个任务可以并发执行，在首屏渲染上，如果并发渲染可以获取到更好效率。已知在 FireFox 上
 130ms 首页渲染可以在 30ms 内渲染完成
 
-参考: http://www.ayqy.net/blog/dive-into-react-fiber
-https://juejin.cn/post/6954352486312312845
+参考: 
+Fiber: http://www.ayqy.net/blog/dive-into-react-fiber
+Hooks: https://juejin.cn/post/6954352486312312845
+并发解释：https://zhuanlan.zhihu.com/p/54042084
