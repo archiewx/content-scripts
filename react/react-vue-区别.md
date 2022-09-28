@@ -13,3 +13,5 @@
 * diff 算法区别
 * 数据驱动思路不同
 * API差异
+
+https://zhuanlan.zhihu.com/p/100228073
