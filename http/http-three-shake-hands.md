@@ -9,33 +9,8 @@ http 协议是 web 联网的基础, 它是建立在 TCP 协议之上的一种应
 - http1.0 版本每次请求，都会建立一个连接，请求完成后就会释放连接
 - http1.1 接入[keep-alive](./http-keep-alive.md)机制，一个连接可以发送可以请求, 多个请求可以重叠发送，不用等待一个连接完成后再发送
 
-Socket: 套接字协议,可以自由选择 TCP/UDP 协议，一般都是成对出现，一个作为 ServerSocket 用来接收客户端传递信息， 一个作为
-ClientSocket,用来传递信息
-
-Socket 协议是通信的基石，是支持 tcp/ip 协议的网络通信的基本单元，socket 是互联网通信端点抽象表示, 包含了通信必须 5 中信息:
-- 连接协议，
-- 本地主机 IP 地址，
-- 本地进程协议端口，
-- 远程主机的 ip 端口，
-- 远程进程的协议端口
-
-socket 分为三个过程:
-
-- 服务器监听
-- 客户端连接
-- 确认连接
 
 TCP: 传输控制协议(Transfer Control Protocol) UDP: 用户数据协议(User Data Protocol)
-
-## ISO 网络协议分层以及协议:
-
-- 7 -> 应用层 -> HTTP、FTP、SMTP、DSN、TELNET
-- 6 -> 表示层 -> 无
-- 5 -> 会话层 -> 无
-- 4 -> 传输层 -> TCP、UDP
-- 3 -> 网络层 -> IP、ICMP
-- 2 -> 数据链路层 -> ARP,PPP
-- 1 -> 物理层 -> ISO2110
 
 ## 三次握手
 
