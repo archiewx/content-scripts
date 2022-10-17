@@ -1,4 +1,4 @@
-在nodejs 中经常会遇到v8内存内存不足，导致程序以外退出
+在 nodejs 中经常会遇到 v8 内存内存不足，导致程序以外退出
 
 ```text
 Heap allocated 4 GB
